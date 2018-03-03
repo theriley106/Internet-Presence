@@ -118,21 +118,27 @@ def getLinkedInProfile(searchQuery):
 	subLine2 = [f.getText().strip() for f in page.select(".subline-level-2")]
 	profileName = [f.getText().strip() for f in page.select(".actor-name")]
 	for i in range(len(subLine)):
-		i = {}
+		e = {}
 		try:
-			i['Profile'] = profileName[i]
+			e['Profile'] = profileName[i]
 		except:
-			i['Profile'] = ""
+			e['Profile'] = ""
 		try:
-			i['Subline'] = subLine[i]
+			e['Subheader'] = subLine[i]
 		except:
-			i["Subline"] = ""
+			e["Subheader"] = ""
 		try:
-			i['Location'] = subLine2[i]
+			e['Location'] = subLine2[i]
 		except:
-			i['Location'] = ""
-		info.append(i)
+			e['Location'] = ""
+		info.append(e)
 	return info
+
+class getInfo(object):
+	def __init__(self, firstName, lastName, zipCode):
+		self.firstName = firstName
+		self.lastName = lastName
+		self.zipCode = zipCode
 
 
 if __name__ == '__main__':
