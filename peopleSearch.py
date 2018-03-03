@@ -10,6 +10,8 @@ import os
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import pickle
+from selenium.webdriver.common.action_chains import ActionChains
+import time
 
 URL = "https://www.truepeoplesearch.com/results?name={0}%20{1}&citystatezip={2}&rid=0x0"
 # 0 = First Name | 1 = Last Name | 2 = ZIP
@@ -51,14 +53,14 @@ def createHeadlessBrowser(proxy=None, XResolution=1024, YResolution=768):
 	#proxy = None
 	dcap = dict(DesiredCapabilities.PHANTOMJS)
 	dcap["phantomjs.page.settings.userAgent"] = (
-	    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.86 Safari/537.36')
+		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.86 Safari/537.36')
 	if proxy != None:
 		service_args = ['--proxy={}'.format(proxy),'--proxy-type=https','--ignore-ssl-errors=true', '--ssl-protocol=any', '--web-security=false',]
 		driver = webdriver.PhantomJS(service_args=service_args, desired_capabilities=dcap)
 	else:
 		driver = webdriver.PhantomJS(desired_capabilities=dcap)
 	driver.set_window_size(XResolution,YResolution)
-	driver.set_page_load_timeout(20)
+	driver.set_page_load_timeout(8)
 	return driver
 
 def searchFacebook(searchQuery):
@@ -66,20 +68,59 @@ def searchFacebook(searchQuery):
 	mainURL = ""
 	driver = createHeadlessBrowser()
 	cookies = pickle.load(open("../cookies.pkl", "rb"))
-	driver.get("https://m.facebook.com/")
+	try:
+		driver.get("https://m.facebook.com/")
+	except Exception:
+		actions = ActionChains(driver)
+		actions.send_keys(Keys.CONTROL +'Escape').perform()
+
 	for cookie in cookies:
 		driver.add_cookie(cookie)
-	driver.get("https://m.facebook.com/search/people/?q={}&source=filter&isTrending=0".format(searchQuery.replace(" ", "%20")))
+	try:
+		driver.get("https://m.facebook.com/search/people/?q={}&source=filter&isTrending=0".format(searchQuery.replace(" ", "%20")))
+	except:
+		actions = ActionChains(driver)
+		actions.send_keys(Keys.CONTROL +'Escape').perform()
 	#driver.find_element_by_css_selector("div.cd").click()
 	a = str(driver.page_source)
-	for var in re.findall('profile.php\?id=(.+)"', a):
-		if str(var)[::-1][:9][::-1] == 'ia-label=':
-			url = "https://m.facebook.com/" + str(var).partition('"')[0]
-			if len(profileURLs) == 0:
-				mainURL = url
-			profileURLs.append(url)
+	mainURL = "https://m.facebook.com/profile.php?id=" + re.findall("profile.php\?id=(\d+)", a)[0]
+	for var in list(set(re.findall("profile.php\?id=(\d+)", a))):
+		url = "https://m.facebook.com/profile.php?id=" + str(var)
+		profileURLs.append(url)
+	driver.save_screenshot('static.png')
 	return {"Profile_Address": mainURL, "Possible_Profiles": profileURLs}
 
+def getLinkedInProfile(searchQuery):
+	info = []
+	profileURLs = []
+	mainURL = ""
+	driver = createHeadlessBrowser()
+	driver.get("https://www.linkedin.com/")
+	cookies = pickle.load(open("../licookies.pkl", "rb"))
+	try:
+		driver.get("https://www.linkedin.com/feed/")
+	except Exception:
+		actions = ActionChains(driver)
+		actions.send_keys(Keys.CONTROL +'Escape').perform()
+	for cookie in cookies:
+		if cookie['domain'][0] != '.':
+			cookie['domain'] = '.' + cookie['domain']
+		driver.add_cookie(cookie)
+	try:
+		driver.get("https://www.linkedin.com/search/results/index/?keywords={}&origin=TYPEAHEAD_ESCAPE_HATCH".format(searchQuery.replace(" ", "%20")))
+		time.sleep(5)
+	except:
+		actions = ActionChains(driver)
+		actions.send_keys(Keys.CONTROL +'Escape').perform()
+	driver.save_screenshot('static.png')
+	page = bs4.BeautifulSoup(driver.page_source, 'lxml')
+	subLine = [f.getText().strip() for f in page.select(".subline-level-1")]
+	profileName = [f.getText().strip() for f in page.select(".actor-name")]
+	for i in range(len(subLine)):
+		info.append({"Profile": profileName[i], "Subline": subLine[i]})
+	return info
+
+
 if __name__ == '__main__':
-	print(searchFacebook('christopher lambert'))
-	#print findPerson('michael', 'lambert', '29644')
+	#print(getLinkedInProfile(['chris', 'christopher'], 'lambert', 'greenville', 'south carolina'))
+	print(getLinkedInProfile('christopher lambert'))
