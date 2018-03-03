@@ -1,6 +1,14 @@
 # Awareness
 Giving consumers knowledge about the data they're giving away...
 
+### List of Platforms to Analyze
+
+- Facebook
+- Twitter
+- Instagram
+- Facebook Messenger
+- Google
+
 ### Useful links
 
 https://developers.facebook.com/docs/marketing-apis
