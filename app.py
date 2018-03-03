@@ -8,8 +8,10 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
-@app.route('/searchUser/<firstName><lastName>', methods=["POST", "GET"])
-def searchUser(firstName, lastName):
+@app.route('/searchUser/<name>', methods=["POST", "GET"])
+def searchUser(name):
+	firstName, lastName = str(name).split()
+
 	return "<h1>{} {}</h1>".format(firstName, lastName)
 
 
