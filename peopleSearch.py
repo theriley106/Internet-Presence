@@ -1,3 +1,7 @@
+import sys
+# sys.setdefaultencoding() does not exist, here!
+reload(sys)  # Reload does the trick!
+sys.setdefaultencoding('UTF8')
 import requests
 import bs4
 import re
@@ -57,7 +61,7 @@ def createHeadlessBrowser(proxy=None, XResolution=1024, YResolution=768):
 	driver.set_page_load_timeout(20)
 	return driver
 
-def searchFacebook():
+def searchFacebook(searchQuery):
 	profileURLs = []
 	mainURL = ""
 	driver = createHeadlessBrowser()
@@ -65,21 +69,17 @@ def searchFacebook():
 	driver.get("https://m.facebook.com/")
 	for cookie in cookies:
 		driver.add_cookie(cookie)
-	driver.get("https://m.facebook.com/search/people/?q=bob%20smith&source=filter&isTrending=0")
+	driver.get("https://m.facebook.com/search/people/?q={}&source=filter&isTrending=0".format(searchQuery.replace(" ", "%20")))
 	#driver.find_element_by_css_selector("div.cd").click()
-	file = open("fileToWrite.txt", "w")
-	file.write(str(driver.page_source))
-	file.close()
-	a = open("fileToWrite.txt").read()
+	a = str(driver.page_source)
 	for var in re.findall('profile.php\?id=(.+)"', a):
 		if str(var)[::-1][:9][::-1] == 'ia-label=':
 			url = "https://m.facebook.com/" + str(var).partition('"')[0]
 			if len(profileURLs) == 0:
 				mainURL = url
 			profileURLs.append(url)
-	driver.save_screenshot('static.png')
 	return {"Profile_Address": mainURL, "Possible_Profiles": profileURLs}
 
 if __name__ == '__main__':
-	print(searchFacebook())
+	print(searchFacebook('christopher lambert'))
 	#print findPerson('michael', 'lambert', '29644')
