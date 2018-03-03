@@ -11,7 +11,6 @@ def index():
 @app.route('/searchUser/<name>', methods=["POST", "GET"])
 def searchUser(name):
 	firstName, lastName = str(name).split()
-
 	return "<h1>{} {}</h1>".format(firstName, lastName)
 
 

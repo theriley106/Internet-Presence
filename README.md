@@ -8,6 +8,7 @@ Giving consumers knowledge about the data they're giving away...
 - Instagram
 - Facebook Messenger
 - Google
+- LinkedIn
 
 ### Useful links
 
