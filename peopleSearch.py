@@ -115,9 +115,23 @@ def getLinkedInProfile(searchQuery):
 	driver.save_screenshot('static.png')
 	page = bs4.BeautifulSoup(driver.page_source, 'lxml')
 	subLine = [f.getText().strip() for f in page.select(".subline-level-1")]
+	subLine2 = [f.getText().strip() for f in page.select(".subline-level-2")]
 	profileName = [f.getText().strip() for f in page.select(".actor-name")]
 	for i in range(len(subLine)):
-		info.append({"Profile": profileName[i], "Subline": subLine[i]})
+		i = {}
+		try:
+			i['Profile'] = profileName[i]
+		except:
+			i['Profile'] = ""
+		try:
+			i['Subline'] = subLine[i]
+		except:
+			i["Subline"] = ""
+		try:
+			i['Location'] = subLine2[i]
+		except:
+			i['Location'] = ""
+		info.append(i)
 	return info
 
 
