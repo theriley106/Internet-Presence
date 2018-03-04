@@ -1,4 +1,4 @@
-## [https://devpost.com/software/awareness](View the Project on DevPost)
+## ["https://devpost.com/software/awareness"](View the Project on DevPost)
 
 ### Inspiration
 
