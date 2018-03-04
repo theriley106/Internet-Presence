@@ -365,7 +365,6 @@ class getInfo(object):
 
 def searchPerson(firstName, lastName, zipCode):
 	a = getInfo(firstName, lastName, zipCode)
-
 	thread1 = threading.Thread(target=a.searchFB)
 	thread2 = threading.Thread(target=a.searchLI)
 	thread3 = threading.Thread(target=a.findGeneralInfo)
@@ -375,10 +374,6 @@ def searchPerson(firstName, lastName, zipCode):
 	thread1.join()
 	thread2.join()
 	thread3.join()
-
-
-
-
 	return a.ConsolidateInfo()
 
 
