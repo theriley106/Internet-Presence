@@ -14,11 +14,16 @@ import traceback
 
 app = Flask(__name__)
 
+app = Flask(__name__,template_folder="templates/",static_url_path='/static')
 
 @app.route('/')
-def index():
-	#return render_template("index.html")
-	return '''<a name='vegan' class="btn btn-primary btn-success btn-block" href="zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BRAWCODE%7D">Vegan</a>'''
+def main():
+	return render_template('index.html')
+
+@app.route('/results',methods=['GET','POST'] )
+def loading():
+	return redirect(url_for('searchUser', firstName=request.form['first name'], lastName=request.form['last name'], zipCode=request.form['location']))
+	#return render_template('results.html', info=info)
 
 @app.route('/addCode/<code>')
 def addCode(code):

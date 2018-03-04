@@ -7,10 +7,6 @@
 /*-- Reset-Code --*/
 
 
-#scanid {
-    background-color: #1313ca !important;
-}
-
 body {
 	padding: 0;
 	margin: 0;
@@ -147,7 +143,7 @@ input[type="submit"] {
     border: 2px solid #13caca;
 	cursor: pointer;
 	    width: 100%;
-	    letter-spacing: 1px;	
+	    letter-spacing: 1px;
 }
 input[type="submit"]:hover {
     color: #13caca;
@@ -208,7 +204,7 @@ span.fa.fa-pinterest-p:hover {
 }
 /* responsive */
 @media screen and (max-width: 1024px){
-	
+
 	.copyright p {
    margin-top: 0%;
 }
@@ -218,7 +214,7 @@ span.fa.fa-pinterest-p:hover {
 @media screen and (max-width: 568px){
 	.agile-login h1 {
 		    font-size: 40px;
-			
+
 	}
 }
 
@@ -242,7 +238,7 @@ span.fa.fa-pinterest-p:hover {
 }
 .copyright p {
 	letter-spacing: 1px;
-	
+
 }
 .w3ls-form {
     width: 300px;
@@ -269,7 +265,7 @@ span.fa.fa-pinterest-p:hover {
     font-size: 14px;
     margin-top: 6%;
 }
-	
+
 }
 @media screen and (max-width: 375px){
 	.agile-login h1 {

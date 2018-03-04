@@ -18,9 +18,6 @@
 	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
 	<script>
-	function redirect() {
-  window.location.href = "zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BRAWCODE%7D";
-}
 </script>
 </head>
 <body>
@@ -29,19 +26,33 @@
 		<div class="wrapper">
 			<h2>Search</h2>
 			<div class="w3ls-form">
-				<form action="/results" method="post">
+				<form action="{{url_for('loading') }}" method="post">
 					<label>First Name</label>
 					<input type="text" name="first name" placeholder="John" required/>
 					<label>Last Name</label>
 					<input type="text" name="last name" placeholder="Doe" required/>
 					<label>Location</label>
-					<input type="text" name="location" placeholder="Washington D.C." required />
+					<input type="text" name="location" placeholder="90210" required />
 					<input type="submit" value="Search" />
 				</form>
-				<form>
-					<input type="submit" onclick="redirect()" id="scanid" value="Scan ID" />
-				</form>
-			</div>
+				</div>
+				<a href="zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BRAWCODE%7D"><span id="scanid" value="SCAN ID" style="background-color: #1313ca !important;
+    margin: 20px auto !important;
+    padding: 9px 60px !important;
+    font-size: 18px !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    outline: 0 !important;
+    border: 2px solid #13caca !important;
+    cursor: pointer !important;
+        width: 100% !important;
+        letter-spacing: 1px !important;"></span></a>
+        <br>
+        <br>
+
+
+
+
 
 			<div class="agile-icons">
 				<a href="#"><span class="fa fa-twitter" aria-hidden="true"></span></a>
