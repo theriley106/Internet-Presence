@@ -210,6 +210,29 @@ def convertState(abbrState):
 	}
 	return states[abbrState]
 
+def shortMonthToNum(shortMonth):
+	return {
+        'Jan' : 1,
+        'Feb' : 2,
+        'Mar' : 3,
+        'Apr' : 4,
+        'May' : 5,
+        'Jun' : 6,
+        'Jul' : 7,
+        'Aug' : 8,
+        'Sep' : 9,
+        'Oct' : 10,
+        'Nov' : 11,
+        'Dec' : 12
+	}[shortMonth]
+
+def numToShortMonth(monthNum):
+	monthNum -= 1
+	return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][monthNum]
+
+def extractShortMonthFromString(string):
+	return string.partition(" ")[0]
+
 class getInfo(object):
 	def __init__(self, firstName, lastName, zipCode):
 		self.firstName = firstName
@@ -322,7 +345,6 @@ if __name__ == '__main__':
 			a.searchLI()
 			e = 1
 		except Exception as exp:
-			print exp
 			print("Linked in failed")
 			pass
 
