@@ -1,0 +1,29 @@
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/img.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+  <body>
+      <!--<div class="wrap"> -->
+      <div class="wrapper">
+        <main>
+            {% for item in info %}
+            <div class="media">
+              <div class="media-left">
+               <img src="{{url_for('static',filename='images/test.jpeg')}}" class="media-object" style="width:160px">
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{item.firstName}} {{item.lastName}}</h4>
+                <p>{{item.city}} {{item.age}} {{item.occupation}}</p>
+              </div>
+            </div>
+            {% endfor %}
+        </main>
+       
+      </div>
+  </body>
+</html>
