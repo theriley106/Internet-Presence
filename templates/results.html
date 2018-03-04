@@ -1,4 +1,4 @@
-  
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,17 +11,18 @@
       <!--<div class="wrap"> -->
       <div class="wrapper">
         <main>
-            {% for item in info %}
             <div class="media">
               <div class="media-left">
                <img src="{{url_for('static',filename='images/test.jpeg')}}" class="media-object" style="width:160px">
               </div>
               <div class="media-body">
-                <h4 class="media-heading">{{item.firstName}} {{item.lastName}}</h4>
-                <p>{{item.city}} {{item.age}} {{item.occupation}}</p>
+                <h4 class="media-heading">{{info['First Name']}} {{info['Last Name']}}</h4>
+
+                {% for key,value in info.items() %}
+                <p>{{key}}: {{value}}</p>
+                {% endfor %}
               </div>
             </div>
-            {% endfor %}
         </main>
        
       </div>
