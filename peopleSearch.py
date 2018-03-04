@@ -21,6 +21,18 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleW
 def grabSite(url):
 	return requests.get(url, headers=headers)
 
+def convertAddress(address):
+	info = {}
+	address = str(address).replace("\n\n\nMap", "")
+	dates = str(address).partition("\n\n\n(")[2]
+	info['Move_In'] = dates.partition(" - ")[0]
+	info['Move_Out'] = dates.partition(" - ")[2].replace("(", "")
+	address = str(address).partition("\n\n\n(")[0]
+	address = str(address).replace("\n", ", ")
+	info["Address"] = address
+	return info
+
+
 def extractValues(contentValuePage):
 	fullName = contentValuePage.select(".h2")[0].getText().strip()
 	age = contentValuePage.select(".pl-md-2 .content-value")[0].getText().strip()
@@ -47,7 +59,7 @@ def findPerson(firstName, lastName, zipCode):
 	print url
 	r = grabSite(url)
 	page = bs4.BeautifulSoup(r.text, 'lxml')
-	print extractValues(page)
+	return extractValues(page)
 
 
 def createHeadlessBrowser(proxy=None, XResolution=1024, YResolution=768):
@@ -208,6 +220,7 @@ class getInfo(object):
 		self.occupation = []
 		self.address = []
 		self.previousAddress = []
+		self.similarNames = []
 		self.age = []
 		self.generalArea = []
 		zcdb = ZipCodeDatabase()
@@ -237,7 +250,7 @@ class getInfo(object):
 		liInfo += getLinkedInProfile(query2)
 		liInfo += getLinkedInProfile(query3)
 		for val in liInfo:
-			if val["Profile"][:3] == "{} {}".format(firstName, lastName)[:3] and val["Profile"][-3:] == "{} {}".format(firstName, lastName)[-3:]:
+			if val["Profile"][:3] == "{} {}".format(self.firstName, self.lastName)[:3] and val["Profile"][-3:] == "{} {}".format(self.firstName, self.lastName)[-3:]:
 				self.linkedInProfile = str(val['Profile'])
 				self.generalArea = str(val['Location'])
 				self.occupation = str(val['Subheader'])
@@ -268,11 +281,13 @@ class getInfo(object):
 		# {"Relatives": relatives, "Associated": associated, "Full_Name": fullName, "Age": age, "Phone_Numbers": phoneNumbers, "Similar_Names": similarNames, "Addresses": previousAddress}
 		info = findPerson(self.firstName, self.lastName, self.zipCode)
 		self.relatives += info["Relatives"]
-		self.Associated += info["Associated"]
+		self.associates += info["Associated"]
 		self.fullName = info['Full_Name']
 		self.age = info['Age']
 		self.listOfPhoneNumbers += info["Phone_Numbers"]
-
+		self.similarNames += info["Similar_Names"]
+		for var in info["Addresses"]:
+			self.previousAddress.append(convertAddress(var))
 
 	def printAllInfo(self):
 		print self.firstName
@@ -301,7 +316,17 @@ class getInfo(object):
 if __name__ == '__main__':
 	a = getInfo("Christopher", "Lambert", "29680")
 	a.searchFB()
-	a.searchLI()
+	e = 0
+	while (e == 0):
+		try:
+			a.searchLI()
+			e = 1
+		except Exception as exp:
+			print exp
+			print("Linked in failed")
+			pass
+
+	a.findGeneralInfo()
 	a.printAllInfo()
 	#print(findPerson('kim', 'lambert', '29680'))
 	#print(getLinkedInProfile(['chris', 'christopher'], 'lambert', 'greenville', 'south carolina'))
