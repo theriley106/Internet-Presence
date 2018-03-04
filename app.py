@@ -9,9 +9,10 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
-@app.route('/searchUser/<name>', methods=["POST", "GET"])
-def searchUser(name):
+@app.route('/searchUser/<firstName>/<lastName>/<zipCode>', methods=["POST", "GET"])
+def searchUser(firstName, lastName, zipCode):
 	firstName, lastName = str(name).split()
+	searchPerson(
 	return "<h1>{} {}</h1>".format(firstName, lastName)
 
 
