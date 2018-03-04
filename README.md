@@ -14,6 +14,36 @@ Giving consumers knowledge about the data they're giving away...
 
 https://developers.facebook.com/docs/marketing-apis
 
+### Supported Bar Code Types
+
+- UPC-A and UPC-E
+
+- EAN-8 and EAN-13
+
+- Code 39
+
+- Code 93
+
+- Code 128
+
+- ITF
+
+- Codabar
+
+- RSS-14 (all variants)
+
+- RSS Expanded (most variants)
+
+- QR Code
+
+- Data Matrix
+
+- Aztec ('beta' quality)
+
+- PDF 417 ('alpha' quality)
+
+- MaxiCode
+
 ### Facebook
 
 Email addresses - Use key EMAIL. Trimming leading and trailing whitespace and convert all characters to lowercase.
@@ -43,3 +73,4 @@ Zip code - ZIP. In lower case, no white spaces. Use only the first 5 digits for 
 Country code - COUNTRY. 2-letter country codes in ISO 3166-1 alpha-2.
 
 Mobile advertiser id - MADID, all lower case. Keep hyphens.
+
