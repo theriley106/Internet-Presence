@@ -1,0 +1,56 @@
+<!--
+	Author: W3layouts
+	Author URL: http://w3layouts.com
+	License: Creative Commons Attribution 3.0 Unported
+	License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Meta tags -->
+	<title>Awareness</title>
+	<!-- stylesheets -->
+	<link rel="stylesheet" href=" {{url_for('static',filename='css/font-awesome.css') }}">
+	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css') }}">
+	<!-- <link rel="stylesheet" href="/web/css/font-awesome.css"> -->
+	<!-- <link rel="stylesheet" href="/web/css/style.css"> -->
+	<!-- google fonts  -->
+	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
+</head>
+<body>
+	<div class="agile-login">
+		<h1>Awareness</h1>
+		<div class="wrapper">
+			<h2>Search</h2>
+			<div class="w3ls-form">
+				<form action="/results" method="post">
+					<label>First Name</label>
+					<input type="text" name="first name" placeholder="John" required/>
+					<label>Last Name</label>
+					<input type="text" name="last name" placeholder="Doe" required/>
+					<label>Location</label>
+					<input type="text" name="location" placeholder="Washington D.C." required />
+					<input type="submit" value="Search" />
+				</form>
+				<form action="/scanid" method="get">
+					<input type="submit" id="scanid" value="Scan ID" />
+				</form>
+			</div>
+			
+			<div class="agile-icons">
+				<a href="#"><span class="fa fa-twitter" aria-hidden="true"></span></a>
+				<a href="#"><span class="fa fa-facebook"></span></a>
+				<a href="#"><span class="fa fa-pinterest-p"></span></a>
+			</div>
+		</div>
+		<br>
+		<div class="copyright">
+		<p>© 2018 Apps Login. All rights reserved | Design by <a href="www.w3layouts.com">W3layouts</a></p> 
+	</div>
+	</div>
+	<Script>
+//		document.getElementById("scanid").add
+	</Script>
+</body>
+</html>

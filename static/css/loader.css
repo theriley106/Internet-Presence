@@ -1,0 +1,93 @@
+$color1 : #CAF7E2;
+$color2 :#58B09C;
+$color3 :#003A3A;
+$color4 : #0C2D2A;
+
+body{
+  height: 100%;
+  width:100%;
+  margin: 0;
+ font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+  font-weight: 1.2em;
+  font-size:2em;
+  background : #222;
+  color:#EEE;
+}
+@for $i from 1 through 51{
+  .pixels:nth-child(#{$i}){
+    animation: magic 2.5s linear infinite;
+    animation-delay:$i*.02s;
+  }
+}
+@for $i from 1 through 50{
+  .pixels:nth-child(#{$i+51}){
+    animation: magic 2.5s linear infinite;
+    animation-delay:$i*.02s;
+  }
+}
+@keyframes magic {
+  0%{
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+    background: $color1;
+    box-shadow: 0 -1px 0px $color1;
+  }
+  28%{
+    opacity:1;
+  }
+  30% {   
+    background: $color2;
+    box-shadow: 0 -1px 0px $color2;
+  }
+  50%{
+    background: $color3;
+      box-shadow: 0 -1px 0px $color3;
+  }
+  65%{
+    background: $color4;
+      box-shadow: 0 -1px 0px $color4;
+  }
+  80%{
+    background: $color3;
+    box-shadow: 0 -1px 0px $color3;
+  }
+  90%{
+     opacity:1;
+    box-shadow: 0 -1px 0px $color2;
+     background: $color2;
+  }
+  100%{
+    opacity:0;
+    background: $color1;
+   
+  }
+}
+
+.container{
+  height : 100% ;
+  width : 100% ;
+  position: relative ; 
+  .loaderPixel{
+    margin:auto;
+    position: relative;
+    margin-top: 5%;
+    width:100%;
+    h1{
+      text-align: center;
+    }
+    .pixels{
+      float: left; 
+      box-shadow: 0 -1px 0px $color1;
+      margin-top:0;
+      margin-bottom:0;
+      opacity:0;
+      height: calc(100vw / 49) ;
+      width : calc(100vw / 50);
+    } 
+  }
+}
+  
+
+  
