@@ -55,7 +55,7 @@ def convertCode(code):
 
 @app.route('/searchUser/<firstName>/<lastName>/<zipCode>', methods=["POST", "GET"])
 def searchUser(firstName, lastName, zipCode):
-	return jsonify(peopleSearch.searchPerson(firstName, lastName, zipCode))
+	return render_template('results.html', info=peopleSearch.searchPerson(firstName, lastName, zipCode))
 
 
 if __name__ == "__main__":
