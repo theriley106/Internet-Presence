@@ -363,13 +363,8 @@ class getInfo(object):
 		info["Full Name"] = self.fullName
 		return info
 
-
-
-
-
-
-if __name__ == '__main__':
-	a = getInfo("Christopher", "Lambert", "29680")
+def searchPerson(firstName, lastName, zipCode):
+	a = getInfo(firstName, lastName, zipCode)
 
 	thread1 = threading.Thread(target=a.searchFB)
 	thread2 = threading.Thread(target=a.searchLI)
@@ -384,7 +379,14 @@ if __name__ == '__main__':
 
 
 
-	print a.ConsolidateInfo()
+	return a.ConsolidateInfo()
+
+
+
+
+
+if __name__ == '__main__':
+	pass
 	#print(findPerson('kim', 'lambert', '29680'))
 	#print(getLinkedInProfile(['chris', 'christopher'], 'lambert', 'greenville', 'south carolina'))
 	#print(getLinkedInProfile('christopher lambert'))
