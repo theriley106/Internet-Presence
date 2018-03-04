@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-	return render_template("index.html")
+	#return render_template("index.html")
+	return '''<a name='vegan' class="btn btn-primary btn-success btn-block" href="zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BCODE%7D/vegan">Vegan</a>'''
 
 @app.route('/addCode/<code>')
 def addCode(code):
@@ -32,4 +33,4 @@ def searchUser(firstName, lastName, zipCode):
 
 
 if __name__ == "__main__":
-	app.run()
+	app.run(host='0.0.0.0', port=5000)
