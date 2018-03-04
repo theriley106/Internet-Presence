@@ -235,24 +235,36 @@ class getInfo(object):
 		liInfo += getLinkedInProfile(query1)
 		liInfo += getLinkedInProfile(query2)
 		liInfo += getLinkedInProfile(query3)
-
 		for val in liInfo:
-			if val['Rank'] == 1 and liInfo.count(str(val['Subheader'])) > 1:
+			if val["Profile"][:3] == "{} {}".format(firstName, lastName)[:3] and val["Profile"][-3:] == "{} {}".format(firstName, lastName)[-3:]:
 				self.linkedInProfile = str(val['Profile'])
 				self.generalArea = str(val['Location'])
 				self.occupation = str(val['Subheader'])
-		if self.linkedInProfile == None:
+				break
+		else:
 			for val in liInfo:
-				if liInfo.count(str(val['Subheader'])) > 1:
+				if val['Rank'] == 1 and liInfo.count(str(val['Subheader'])) > 1:
 					self.linkedInProfile = str(val['Profile'])
 					self.generalArea = str(val['Location'])
 					self.occupation = str(val['Subheader'])
-		if self.linkedInProfile == None:
-			for val in liInfo:
-				if val['Rank'] == 1:
-					self.linkedInProfile = str(val['Profile'])
-					self.generalArea = str(val['Location'])
-					self.occupation = str(val['Subheader'])
+					break
+			if self.linkedInProfile == None:
+				for val in liInfo:
+					if liInfo.count(str(val['Subheader'])) > 1:
+						self.linkedInProfile = str(val['Profile'])
+						self.generalArea = str(val['Location'])
+						self.occupation = str(val['Subheader'])
+						break
+			if self.linkedInProfile == None:
+				for val in liInfo:
+					if val['Rank'] == 1:
+						self.linkedInProfile = str(val['Profile'])
+						self.generalArea = str(val['Location'])
+						self.occupation = str(val['Subheader'])
+						break
+
+	def findGeneralInfo(self):
+		findPerson(self.firstName, self.lastName, '29680')
 
 	def printAllInfo(self):
 		print self.firstName
@@ -271,6 +283,7 @@ class getInfo(object):
 		print self.city
 		print self.fullState
 		print self.linkedInProfile
+		print self.fullName
 
 
 
@@ -278,10 +291,10 @@ class getInfo(object):
 
 
 if __name__ == '__main__':
-	#a = getInfo("Christopher", "Lambert", "29680")
-	#a.searchFB()
-	#a.searchLI()
-	#a.printAllInfo()
-	print(findPerson('kim', 'lambert', '29680'))
+	a = getInfo("Christopher", "Lambert", "29680")
+	a.searchFB()
+	a.searchLI()
+	a.printAllInfo()
+	#print(findPerson('kim', 'lambert', '29680'))
 	#print(getLinkedInProfile(['chris', 'christopher'], 'lambert', 'greenville', 'south carolina'))
 	#print(getLinkedInProfile('christopher lambert'))
