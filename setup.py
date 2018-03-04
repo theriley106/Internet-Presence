@@ -3,7 +3,7 @@ from flask_oauth import OAuth
 import requests
 from requests_oauthlib import OAuth1
 import ConfigParser
-import peopleSearch
+from peopleSearch import searchPerson
 
 app = Flask(__name__,template_folder="templates/",static_url_path='/static')
 

@@ -1,4 +1,5 @@
 requests
 requests_oauthlib
 bs4
+libsqlite3-dev
 
