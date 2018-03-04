@@ -12,6 +12,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import pickle
 from selenium.webdriver.common.action_chains import ActionChains
 import time
+import zipcode
 
 URL = "https://www.truepeoplesearch.com/results?name={0}%20{1}&citystatezip={2}&rid=0x0"
 # 0 = First Name | 1 = Last Name | 2 = ZIP
@@ -139,6 +140,25 @@ class getInfo(object):
 		self.firstName = firstName
 		self.lastName = lastName
 		self.zipCode = zipCode
+		self.relatives = []
+		self.associates = []
+		self.occupation = []
+		self.address = []
+		self.previousAddress = []
+		self.age = []
+		self.generalArea = []
+		myzip = zipcode.isequal(zipCode)
+		self.fbProfile = ""
+		self.similarFBProfile = []
+		self.state = myzip.state
+		self.city = str(myzip.city).title()
+
+
+	def searchFB(self):
+		searchQuery = "{} {} {}".format(self.firstName, self.lastName, self.city)
+		fbInfo = searchFacebook(searchQuery)
+		self.fbProfile = fbInfo["Profile_Address"]
+		self.similarFBProfile = fbInfo["Possible_Profiles"]
 
 
 if __name__ == '__main__':
