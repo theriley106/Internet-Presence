@@ -4,6 +4,7 @@ reload(sys)  # Reload does the trick!
 sys.setdefaultencoding('UTF8')
 from flask import Flask, request, jsonify, render_template, request, url_for, redirect, Markup, Response, send_file, send_from_directory, make_response
 import os
+import urllib
 import time
 import peopleSearch
 import logging
@@ -29,7 +30,9 @@ def page_not_found(e):
 	print(request)
 	ts = strftime('[%Y-%b-%d %H:%M]')
 	tb = traceback.format_exc()
-	return redirect(url_for('addCode', code = str(request.full_path).partition("+-+")[0]))
+	print(urllib.quote_plus(str(request.full_path)))
+	code = str(urllib.quote_plus(str(request.full_path))).partition("-")[0].replace("\n", "")[:-3]
+	return redirect(url_for('searchUser', firstName=extractFirstName(code), lastName=extractLastName(code), zipCode=extractZipCode(code)))
 	#return tb +  + str(request.full_path)
 
 def extractLastName(code):
