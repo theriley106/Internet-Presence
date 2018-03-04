@@ -12,7 +12,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import pickle
 from selenium.webdriver.common.action_chains import ActionChains
 import time
-import zipcode
+from pyzipcode import ZipCodeDatabase
 
 URL = "https://www.truepeoplesearch.com/results?name={0}%20{1}&citystatezip={2}&rid=0x0"
 # 0 = First Name | 1 = Last Name | 2 = ZIP
@@ -210,13 +210,15 @@ class getInfo(object):
 		self.previousAddress = []
 		self.age = []
 		self.generalArea = []
-		myzip = zipcode.isequal(zipCode)
+		zcdb = ZipCodeDatabase()
+		myzip = zcdb[int(zipCode)]
 		self.fbProfile = ""
 		self.similarFBProfile = []
 		self.state = myzip.state
 		self.city = str(myzip.city).title()
 		self.fullState = convertState(self.state)
 		self.linkedInProfile = None
+		self.fullName = ""
 
 
 	def searchFB(self):
@@ -233,6 +235,7 @@ class getInfo(object):
 		liInfo += getLinkedInProfile(query1)
 		liInfo += getLinkedInProfile(query2)
 		liInfo += getLinkedInProfile(query3)
+
 		for val in liInfo:
 			if val['Rank'] == 1 and liInfo.count(str(val['Subheader'])) > 1:
 				self.linkedInProfile = str(val['Profile'])
@@ -251,11 +254,34 @@ class getInfo(object):
 					self.generalArea = str(val['Location'])
 					self.occupation = str(val['Subheader'])
 
+	def printAllInfo(self):
+		print self.firstName
+		print self.lastName
+		print self.zipCode
+		print self.relatives
+		print self.associates
+		print self.occupation
+		print self.address
+		print self.previousAddress
+		print self.age
+		print self.generalArea
+		print self.fbProfile
+		print self.similarFBProfile
+		print self.state
+		print self.city
+		print self.fullState
+		print self.linkedInProfile
+
 
 
 
 
 
 if __name__ == '__main__':
+	#a = getInfo("Christopher", "Lambert", "29680")
+	#a.searchFB()
+	#a.searchLI()
+	#a.printAllInfo()
+	print(findPerson('kim', 'lambert', '29680'))
 	#print(getLinkedInProfile(['chris', 'christopher'], 'lambert', 'greenville', 'south carolina'))
-	print(getLinkedInProfile('christopher lambert'))
+	#print(getLinkedInProfile('christopher lambert'))
