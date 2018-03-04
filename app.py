@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, request, url_for, redirect, Markup, Response, send_file, send_from_directory, make_response
+from flask import Flask, request, jsonify, render_template, request, url_for, redirect, Markup, Response, send_file, send_from_directory, make_response
 import os
 import time
 import peopleSearch
@@ -11,9 +11,7 @@ def index():
 
 @app.route('/searchUser/<firstName>/<lastName>/<zipCode>', methods=["POST", "GET"])
 def searchUser(firstName, lastName, zipCode):
-	firstName, lastName = str(name).split()
-	searchPerson(
-	return "<h1>{} {}</h1>".format(firstName, lastName)
+	return jsonify(peopleSearch.searchPerson(firstName, lastName, zipCode))
 
 
 if __name__ == "__main__":
