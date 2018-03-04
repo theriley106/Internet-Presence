@@ -1,18 +1,36 @@
+import sys
+# sys.setdefaultencoding() does not exist, here!
+reload(sys)  # Reload does the trick!
+sys.setdefaultencoding('UTF8')
 from flask import Flask, request, jsonify, render_template, request, url_for, redirect, Markup, Response, send_file, send_from_directory, make_response
 import os
 import time
 import peopleSearch
+import logging
+import threading
+from time import strftime
+import traceback
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
 	#return render_template("index.html")
-	return '''<a name='vegan' class="btn btn-primary btn-success btn-block" href="zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BCODE%7D/vegan">Vegan</a>'''
+	return '''<a name='vegan' class="btn btn-primary btn-success btn-block" href="zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BRAWCODE%7D">Vegan</a>'''
 
 @app.route('/addCode/<code>')
 def addCode(code):
+	print code
 	return jsonify(convertCode(code))
+
+@app.errorhandler(404)
+def page_not_found(e):
+	print(request)
+	ts = strftime('[%Y-%b-%d %H:%M]')
+	tb = traceback.format_exc()
+	return redirect(url_for('addCode', code = str(request.full_path).partition("+-+")[0]))
+	#return tb +  + str(request.full_path)
 
 def extractLastName(code):
 	# /add/%40%0A%1EANSI+636005050001DL003100272DCAD%0ADCBU%0ADCD%0ADBA06102020%0ADCSLAMBERT%0ADACCHRISTOPHER%0ADADROBERT%0ADBD04092015%0ADBB06101999%0ADBC1%0ADAU075+in%0ADAG17+ENGEL+DR%0ADAIGREENVILLE%0ADAJSC%0ADAK296177209%0ADAQ103659059%0ADCF1036590590409201510%0ADCGUSA%0ADDEU%0ADDFU%0ADDGU%0ADCU%0ADAW240%0ADCRU+-+Conditional+%2FProvisional++++++++++++++++++++++%C2%85%C2%85/glutenFree
