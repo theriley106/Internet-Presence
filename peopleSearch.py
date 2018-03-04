@@ -314,25 +314,40 @@ class getInfo(object):
 		self.similarNames += info["Similar_Names"]
 		for var in info["Addresses"]:
 			self.previousAddress.append(convertAddress(var))
+		for i, vals in enumerate(self.previousAddress):
+			if len(vals['Move_In']) == 0:
+				self.address = vals['Address']
+				nextMonth = extractShortMonthFromString(self.previousAddress[i+1]['Move_Out'])
+				nextMonth = shortMonthToNum(nextMonth) + 1
+				nextMonth = numToShortMonth(nextMonth)
+				if nextMonth != 1:
+					nextYear = extractYearValFromString(self.previousAddress[i+1]['Move_Out'])
+				else:
+					nextYear = extractYearValFromString(self.previousAddress[i+1]['Move_Out']) + 1
+				vals["Move_In"] = "{} {}".format(nextMonth, nextYear)
+				vals["Move_Out"] = "TBD"
 
-	def printAllInfo(self):
-		print self.firstName
-		print self.lastName
-		print self.zipCode
-		print self.relatives
-		print self.associates
-		print self.occupation
-		print self.address
-		print self.previousAddress
-		print self.age
-		print self.generalArea
-		print self.fbProfile
-		print self.similarFBProfile
-		print self.state
-		print self.city
-		print self.fullState
-		print self.linkedInProfile
-		print self.fullName
+
+	def ConsolidateInfo(self):
+		info = {}
+		info["First Name"] = self.firstName
+		info["Last Name"] = self.lastName
+		info["Zip Code"] = self.zipCode
+		info["Relatives"] = self.relatives
+		info["People You May Know"] = self.associates
+		info["Occupation"] = self.occupation
+		info["Address"] = self.address
+		info["Previous Address"] = self.previousAddress
+		info["Age"] = self.age
+		info["Genearal Area"] = self.generalArea
+		info["FB Profile"] = self.fbProfile
+		info["Similar FB Profile"] = self.similarFBProfile
+		info["State"] = self.state
+		info["City"] = self.city
+		info["Full State"] = self.fullState
+		info["LinkedIn Profile Name"] = self.linkedInProfile
+		info["Full Name"] = self.fullName
+		return info
 
 
 
