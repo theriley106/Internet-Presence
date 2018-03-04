@@ -1,22 +1,14 @@
-# Awareness
-Giving consumers knowledge about the data they're giving away...
+### Inspiration
 
-### List of Platforms to Analyze
+The widespread exposure of personal information on the internet. We want to bring awareness to the community of how much personal information is out there on the internet.
 
-- Facebook
-- Twitter
-- Instagram
-- Facebook Messenger
-- Google
-- LinkedIn
+### What it does
 
-### Useful links
+It allows users to search their name and location, or scan their barcode, to find if there is any personal information online. It gathers information from various social media sites such as Facebook and LinkedIn, and checks sites containing public information.
 
-https://developers.facebook.com/docs/marketing-apis
+### Supported Bar Code Types:
 
-### Supported Bar Code Types
-
-- UPC-A and UPC-E
+ -UPC-A and UPC-E
 
 - EAN-8 and EAN-13
 
@@ -44,33 +36,25 @@ https://developers.facebook.com/docs/marketing-apis
 
 - MaxiCode
 
-### Facebook
+### How we built it
 
-Email addresses - Use key EMAIL. Trimming leading and trailing whitespace and convert all characters to lowercase.
+Using Flask framework as the back end, and Bootstrap in the front end. Used REST API, Selenium to bypass scraping limits, and ZXing.
 
-Phone numbers - Use key PHONE. Remove symbols, letters, and any leading zeroes. You should prefix the country code if COUNTRY field is not specified.
+### Challenges we ran into
 
-Gender - Use key GEN. m for male and f for female.
+We intended it to be a mobile app and have more elaborate functions. The learning curve for Swift was very high especially when we didn't have any experience working with it. Formatting the UI via HTML and CSS.
 
-Birth Year - Use key DOBY. YYYY from 1900 to current year.
+### Accomplishments that we're proud of
 
-Birth Month - Key DOBM. MM format: 01 to 12.
+Integrating the technology that allows scanning of barcodes with personal information, and searches this information in the internet. We are proud of the accessibility features we provided. Being able to scan your I.D. empowers people who don't have the ability to type or have full access to technology. First open-source Flask-based Barcode scanner that supports PDF417.
 
-Birthday - Key DOBD, DD format: 01 to 31.
+**The technology does not release any personal information from the user's entry or their driver's license.**
 
-Last and first names - Keys LN and FN. a-z only. Lower case only, no punctuation. Special characters in UTF8 format.
+### What we learned
+The vast amount of resources available online that can be used to search your personal information. How much information one can obtain about a person using just their name, and location.
 
-First Initial - FI, first character of normalized first name.
+### What's next for Internet Presence
 
-US States - ST in 2-character ANSI abbreviation code, lower case.
+- Include more sources for obtaining data on a person. Eventually we would leverage this information to incentivize users to reduce their internet presence by being aware of their privacy settings and which applications share your personal information.
 
-Normalize states outside U.S. in lower case, no punctuations, no special characters, no white space.
-
-City - CT as a-z only. Lower case, no punctuations, no special characters, no white space.
-
-Zip code - ZIP. In lower case, no white spaces. Use only the first 5 digits for U.S. Use Area/District/Sector format for UK.
-
-Country code - COUNTRY. 2-letter country codes in ISO 3166-1 alpha-2.
-
-Mobile advertiser id - MADID, all lower case. Keep hyphens.
-
+- A share button that allows a user to share with their friends what kind of information they found out about themselves. This will allow people to become more aware of the widespread data that's out there on the internet.

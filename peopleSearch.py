@@ -251,7 +251,7 @@ class getInfo(object):
 		self.age = []
 		self.generalArea = []
 		zcdb = ZipCodeDatabase()
-		myzip = zcdb[int(zipCode)]
+		myzip = zcdb[str(zipCode)]
 		self.fbProfile = ""
 		self.similarFBProfile = []
 		self.state = myzip.state
@@ -282,7 +282,6 @@ class getInfo(object):
 						liInfo.append(var)
 					a = 1
 				except Exception as exp:
-					print exp
 					pass
 		threads = [threading.Thread(target=addToInfo, args=(query,)) for query in [query1, query2, query3]]
 		for thread in threads:
