@@ -24,7 +24,7 @@ def extractFirstName(code):
 	return code.split("DAC")[1].partition("%")[0].title()
 
 def convertCode(code):
-	pass
+	return {"ZipCode": extractZipCode(code), "FirstName": extractFirstName(code), "LastName": extractLastName(code)}
 
 @app.route('/searchUser/<firstName>/<lastName>/<zipCode>', methods=["POST", "GET"])
 def searchUser(firstName, lastName, zipCode):
