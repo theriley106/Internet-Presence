@@ -233,6 +233,9 @@ def numToShortMonth(monthNum):
 def extractShortMonthFromString(string):
 	return string.partition(" ")[0]
 
+def extractYearValFromString(string):
+	return re.findall("\d+", str(string.partition(" ")[2]))[0]
+
 class getInfo(object):
 	def __init__(self, firstName, lastName, zipCode):
 		self.firstName = firstName
