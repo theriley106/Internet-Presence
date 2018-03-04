@@ -9,7 +9,28 @@
 
 #scanid {
     background-color: #1313ca !important;
+    margin: 20px auto;
+    padding: 9px 60px;
+    font-size: 18px;
+    border: none;
+    background-color: #13caca;
+    color: #fff;
+    text-transform: uppercase;
+    outline: 0;
+    border: 2px solid #13caca;
+    cursor: pointer;
+    width: 100%;
+    letter-spacing: 1px;
+    text-align: left;
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
 }
+
 
 body {
 	padding: 0;
