@@ -17,6 +17,11 @@
 	<!-- google fonts  -->
 	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
+	<script>
+	function redirect() {
+  window.location.href = "zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BRAWCODE%7D";
+}
+</script>
 </head>
 <body>
 	<div class="agile-login">
@@ -33,8 +38,8 @@
 					<input type="text" name="location" placeholder="Washington D.C." required />
 					<input type="submit" value="Search" />
 				</form>
-				<form action="/scanid" method="get">
-					<input type="submit" id="scanid" value="Scan ID" />
+				<form>
+					<input type="submit" onclick="redirect()" id="scanid" value="Scan ID" />
 				</form>
 			</div>
 
