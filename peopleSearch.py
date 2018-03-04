@@ -219,6 +219,7 @@ class getInfo(object):
 		self.fullState = convertState(self.state)
 		self.linkedInProfile = None
 		self.fullName = ""
+		self.listOfPhoneNumbers = []
 
 
 	def searchFB(self):
@@ -264,7 +265,14 @@ class getInfo(object):
 						break
 
 	def findGeneralInfo(self):
-		findPerson(self.firstName, self.lastName, '29680')
+		# {"Relatives": relatives, "Associated": associated, "Full_Name": fullName, "Age": age, "Phone_Numbers": phoneNumbers, "Similar_Names": similarNames, "Addresses": previousAddress}
+		info = findPerson(self.firstName, self.lastName, self.zipCode)
+		self.relatives += info["Relatives"]
+		self.Associated += info["Associated"]
+		self.fullName = info['Full_Name']
+		self.age = info['Age']
+		self.listOfPhoneNumbers += info["Phone_Numbers"]
+
 
 	def printAllInfo(self):
 		print self.firstName
