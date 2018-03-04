@@ -1,5 +1,4 @@
-## (https://devpost.com/software/awareness "View the Project on DevPost")
-
+## <a href="https://devpost.com/software/awareness">View the Project on DevPost</a>
 ### Inspiration
 
 The widespread exposure of personal information on the internet. We want to bring awareness to the community of how much personal information is out there on the internet.
