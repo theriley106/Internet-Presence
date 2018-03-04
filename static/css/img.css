@@ -1,0 +1,147 @@
+
+
+body{
+	background: url('../images/banner1.jpg') no-repeat;
+    background-size: cover;
+	min-height: 100vh;
+}
+
+.media-heading {
+	font-weight: bold;
+}
+
+p {
+	text-align: left;
+}
+
+.wrapper {
+    width: 700px;
+    margin: auto;
+    text-align: center;
+    padding: 3% 1%;
+    background-color: #fff;
+}
+
+.wrapper h2 {
+	margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 26px;
+    color:#13caca;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+
+
+/* responsive */
+@media screen and (max-width: 1024px){
+	
+	.copyright p {
+   margin-top: 0%;
+}
+}
+
+
+@media screen and (max-width: 568px){
+	.agile-login h1 {
+		    font-size: 40px;
+			
+	}
+}
+
+@media screen and (max-width: 480px){
+	body{
+		background-position: center;
+	}
+	.agile-login {
+    padding-top: 35px;
+}
+	.agile-login h1 {
+    font-size: 35px;
+    letter-spacing: 4px;
+}
+	.wrapper h2 {
+    font-size: 26px;
+
+}
+.wrapper {
+    width: 370px;
+}
+.copyright p {
+	letter-spacing: 1px;
+	
+}
+.w3ls-form {
+    width: 300px;
+}
+}
+@media screen and (max-width: 414px){
+	.agile-login h1 {
+    font-size: 30px;
+	letter-spacing: 3px;
+	    margin-bottom: 6%;
+}
+.wrapper {
+    width: 320px;
+}
+.w3ls-form {
+	    width: 270px;
+}
+.wrapper h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.copyright p {
+    padding: 10px 0px;
+    font-size: 14px;
+    margin-top: 6%;
+}
+	
+}
+@media screen and (max-width: 375px){
+	.agile-login h1 {
+    font-size: 29px;
+}
+	.copyright p {
+    font-size: 13px;
+
+}
+}
+@media screen and (max-width: 320px){
+.w3ls-form {
+    width: 270px;
+}
+.agile-login h1 {
+    font-size: 26px;
+}
+.wrapper {
+    width: 280px;
+}
+.wrapper h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+input[type="submit"] {
+    margin: 10px auto;
+	    padding: 8px 60px;
+}
+.agile-login {
+    padding-top: 30px;
+}
+label {
+    margin: 15px 0px 5px 10px;
+}
+.copyright p {
+   margin-top: 0%;
+}
+input[type="text"] {
+    padding: 10px 15px;
+}
+.w3ls-form {
+    width: 235px;
+}
+
+}
+
+
+/* responsive */
