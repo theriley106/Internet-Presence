@@ -216,6 +216,7 @@ class getInfo(object):
 		self.state = myzip.state
 		self.city = str(myzip.city).title()
 		self.fullState = convertState(self.state)
+		self.linkedInProfile = None
 
 
 	def searchFB(self):
@@ -229,7 +230,30 @@ class getInfo(object):
 		query1 = "{} {}".format(self.firstName, self.lastName)
 		query2 = "{} {} {}".format(self.firstName, self.lastName, self.fullState)
 		query3 = "{} {} {}".format(self.firstName, self.lastName, self.city)
-		getLinkedInProfile(
+		liInfo += getLinkedInProfile(query1)
+		liInfo += getLinkedInProfile(query2)
+		liInfo += getLinkedInProfile(query3)
+		for val in liInfo:
+			if val['Rank'] == 1 and liInfo.count(str(val['Subheader'])) > 1:
+				self.linkedInProfile = str(val['Profile'])
+				self.generalArea = str(val['Location'])
+				self.occupation = str(val['Subheader'])
+		if self.linkedInProfile == None:
+			for val in liInfo:
+				if liInfo.count(str(val['Subheader'])) > 1:
+					self.linkedInProfile = str(val['Profile'])
+					self.generalArea = str(val['Location'])
+					self.occupation = str(val['Subheader'])
+		if self.linkedInProfile == None:
+			for val in liInfo:
+				if val['Rank'] == 1:
+					self.linkedInProfile = str(val['Profile'])
+					self.generalArea = str(val['Location'])
+					self.occupation = str(val['Subheader'])
+
+
+
+
 
 
 if __name__ == '__main__':
