@@ -13,6 +13,7 @@ import pickle
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 from pyzipcode import ZipCodeDatabase
+import threading
 
 URL = "https://www.truepeoplesearch.com/results?name={0}%20{1}&citystatezip={2}&rid=0x0"
 # 0 = First Name | 1 = Last Name | 2 = ZIP
@@ -272,9 +273,22 @@ class getInfo(object):
 		query1 = "{} {}".format(self.firstName, self.lastName)
 		query2 = "{} {} {}".format(self.firstName, self.lastName, self.fullState)
 		query3 = "{} {} {}".format(self.firstName, self.lastName, self.city)
-		liInfo += getLinkedInProfile(query1)
-		liInfo += getLinkedInProfile(query2)
-		liInfo += getLinkedInProfile(query3)
+		def addToInfo(query):
+			a = 0
+			while a == 0:
+				try:
+					e = getLinkedInProfile(query)
+					for var in e:
+						liInfo.append(var)
+					a = 1
+				except Exception as exp:
+					print exp
+					pass
+		threads = [threading.Thread(target=addToInfo, args=(query,)) for query in [query1, query2, query3]]
+		for thread in threads:
+			thread.start()
+		for thread in threads:
+			thread.join()
 		for val in liInfo:
 			if val["Profile"][:3] == "{} {}".format(self.firstName, self.lastName)[:3] and val["Profile"][-3:] == "{} {}".format(self.firstName, self.lastName)[-3:]:
 				self.linkedInProfile = str(val['Profile'])
@@ -356,18 +370,21 @@ class getInfo(object):
 
 if __name__ == '__main__':
 	a = getInfo("Christopher", "Lambert", "29680")
-	a.searchFB()
-	e = 0
-	while (e == 0):
-		try:
-			a.searchLI()
-			e = 1
-		except Exception as exp:
-			print("Linked in failed")
-			pass
 
-	a.findGeneralInfo()
-	a.printAllInfo()
+	thread1 = threading.Thread(target=a.searchFB)
+	thread2 = threading.Thread(target=a.searchLI)
+	thread3 = threading.Thread(target=a.findGeneralInfo)
+	thread1.start()
+	thread2.start()
+	thread3.start()
+	thread1.join()
+	thread2.join()
+	thread3.join()
+
+
+
+
+	print a.ConsolidateInfo()
 	#print(findPerson('kim', 'lambert', '29680'))
 	#print(getLinkedInProfile(['chris', 'christopher'], 'lambert', 'greenville', 'south carolina'))
 	#print(getLinkedInProfile('christopher lambert'))
