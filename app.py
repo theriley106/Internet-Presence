@@ -4,6 +4,7 @@ reload(sys)  # Reload does the trick!
 sys.setdefaultencoding('UTF8')
 from flask import Flask, request, jsonify, render_template, request, url_for, redirect, Markup, Response, send_file, send_from_directory, make_response
 import os
+import urllib
 import time
 import peopleSearch
 import logging
@@ -13,11 +14,16 @@ import traceback
 
 app = Flask(__name__)
 
+app = Flask(__name__,template_folder="templates/",static_url_path='/static')
 
 @app.route('/')
-def index():
-	#return render_template("index.html")
-	return '''<a name='vegan' class="btn btn-primary btn-success btn-block" href="zxing://scan/?ret=http%3A%2F%2F192.168.43.122:5000%2FaddCode%2F%7BRAWCODE%7D">Vegan</a>'''
+def main():
+	return render_template('index.html')
+
+@app.route('/results',methods=['GET','POST'] )
+def loading():
+	return redirect(url_for('searchUser', firstName=request.form['first name'], lastName=request.form['last name'], zipCode=request.form['location']))
+	#return render_template('results.html', info=info)
 
 @app.route('/addCode/<code>')
 def addCode(code):
@@ -29,7 +35,9 @@ def page_not_found(e):
 	print(request)
 	ts = strftime('[%Y-%b-%d %H:%M]')
 	tb = traceback.format_exc()
-	return redirect(url_for('addCode', code = str(request.full_path).partition("+-+")[0]))
+	print(urllib.quote_plus(str(request.full_path)))
+	code = str(urllib.quote_plus(str(request.full_path))).partition("-")[0].replace("\n", "")[:-3]
+	return redirect(url_for('searchUser', firstName=extractFirstName(code), lastName=extractLastName(code), zipCode=extractZipCode(code)))
 	#return tb +  + str(request.full_path)
 
 def extractLastName(code):
@@ -47,7 +55,7 @@ def convertCode(code):
 
 @app.route('/searchUser/<firstName>/<lastName>/<zipCode>', methods=["POST", "GET"])
 def searchUser(firstName, lastName, zipCode):
-	return jsonify(peopleSearch.searchPerson(firstName, lastName, zipCode))
+	return render_template('results.html', info=peopleSearch.searchPerson(firstName, lastName, zipCode))
 
 
 if __name__ == "__main__":

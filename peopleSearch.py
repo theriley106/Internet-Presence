@@ -101,7 +101,7 @@ def searchFacebook(searchQuery):
 	for var in list(set(re.findall("profile.php\?id=(\d+)", a))):
 		url = "https://m.facebook.com/profile.php?id=" + str(var)
 		profileURLs.append(url)
-	#driver.save_screenshot('static.png')
+	driver.save_screenshot('staticfb.png')
 	return {"Profile_Address": mainURL, "Possible_Profiles": profileURLs}
 
 def getLinkedInProfile(searchQuery):
@@ -126,7 +126,7 @@ def getLinkedInProfile(searchQuery):
 	except:
 		actions = ActionChains(driver)
 		actions.send_keys(Keys.CONTROL +'Escape').perform()
-	#driver.save_screenshot('static.png')
+	driver.save_screenshot('staticli.png')
 	page = bs4.BeautifulSoup(driver.page_source, 'lxml')
 	subLine = [f.getText().strip() for f in page.select(".subline-level-1")]
 	subLine2 = [f.getText().strip() for f in page.select(".subline-level-2")]
